@@ -7,6 +7,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Net.Configuration;
+using System.Collections;
 
 namespace Alpha
 {
@@ -43,6 +44,24 @@ namespace Alpha
                 {
                     MessageBox.Show(msgErro + "\n" + ex.Message);
                 }
+            }
+        }
+
+        public static void GravarNovoProduto(Produto p)
+        {
+            try
+            {
+                var cmd = conexaoBanco().CreateCommand();
+                cmd.CommandText = "INSERT INTO Produtos(Descricao , Preco) VALUES(@nome , @preco)";
+                cmd.Parameters.AddWithValue("@nome", p.Nome);
+                cmd.Parameters.AddWithValue("@preco", p.Preco);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Produto cadastrado com sucesso.");
+                conexaoBanco().Close();
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show(e.Message , "ERROR:");
             }
         }
     }

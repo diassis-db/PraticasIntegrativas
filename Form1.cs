@@ -49,5 +49,11 @@ namespace Alpha
         {
 
         }
+
+        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_Produtos produto = new F_Produtos();
+            produto.Show();
+        }
     }
 }
